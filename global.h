@@ -39,6 +39,9 @@ class Poly {
 
   public:
 	Poly(int n);
+	~Poly();
+	Poly(const Poly&);
+	Poly& operator=(const Poly&);
 	Poly& operator+=(const Poly&);
 	Poly& operator*=(const Poly&);
 	Frac& operator[](int);

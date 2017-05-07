@@ -5,6 +5,29 @@ Poly::Poly(int j) {
 	term = new Frac[n];
 }
 
+Poly::~Poly() { delete [] term;}
+
+Poly::Poly(const Poly &p) {
+	n = p.n;
+	term = new Frac[n];
+	// should use smartpointer here
+	// term = p.term; 
+	for(int j=0; j<n; j++) {
+		term[j] = p.term[j];
+	}
+}
+
+Poly& Poly::operator=(const Poly& rhs) 
+{
+	delete [] term; 
+	term = new Frac[n];
+	for(int j=0; j<n; j++) {
+		term[j] = rhs.term[j];
+	}
+
+	return (Poly&) *this;
+}
+
 void Poly::fill() {
 	for(int i=0;i<n;i++) {
 		term[i] = Frac(1, 1);

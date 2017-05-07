@@ -10,8 +10,6 @@ Poly::~Poly() { delete [] term;}
 Poly::Poly(const Poly &p) {
 	n = p.n;
 	term = new Frac[n];
-	// should use smartpointer here
-	// term = p.term; 
 	for(int j=0; j<n; j++) {
 		term[j] = p.term[j];
 	}
@@ -19,39 +17,12 @@ Poly::Poly(const Poly &p) {
 
 Poly& Poly::operator=(const Poly& rhs) 
 {
-	delete [] term; 
-	term = new Frac[n];
 	for(int j=0; j<n; j++) {
 		term[j] = rhs.term[j];
 	}
 
 	return (Poly&) *this;
 }
-
-void Poly::fill() {
-	for(int i=0;i<n;i++) {
-		term[i] = Frac(1, 1);
-	}
-}
-
-void Poly::fill1() {
-	(this->term)[0] = Frac(1,1);
-}
-
-void Poly::fill2() {
-	for(int i=0;i<n;i++) {
-		term[i] = Frac( 1, fact(i) ); 
-	}
-}
-
-void Poly::fill3() {
-
-	size_t N = this->n;
-	for(int i=1; i<N; i++) {
-		(this->term)[i] = Frac( alt(i) , fact(i+1) );
-	}
-}
-
 
 ostream& operator<<(ostream& os, const Poly& p) 
 {
@@ -92,7 +63,7 @@ Poly operator+(const Poly& p, const Poly& q)
 	
 Poly operator*(const Poly& p, const Poly& q) 
 {
-	//assume p = q
+	//assume dim p = q
 	size_t N = p.n;
 	Poly t(N); //all 0 init
 	
@@ -101,11 +72,8 @@ Poly operator*(const Poly& p, const Poly& q)
 		for (j=0; j< i+1; j++) {
 			//fraction algebra
 			t[i] += ( p[j] * q[i-j] );
-			//cout << p[j] << " " << q[i-j] << endl;
 		}
 	}
-	
-	//cerr << "finished +=" << endl;
 	return t;
 }
 
@@ -120,3 +88,31 @@ Poly& Poly::operator*=(const Poly& rhs) {
 	*this = *this * rhs;
 	return (Poly &)*this;
 }
+
+// fills all terms with ones (not used)
+void Poly::fill() {
+	for(int i=0;i<n;i++) {
+		term[i] = Frac(1, 1);
+	}
+}
+
+// only constant non-zero
+void Poly::fill1() {
+	term[0] = Frac(1,1);
+}
+
+// exponential init
+void Poly::fill2() {
+	for(int i=0;i<n;i++) {
+		term[i] = Frac( 1, fact(i) ); 
+	}
+}
+
+// 1 - exp(-x) init
+void Poly::fill3() {
+
+	for(int i=1; i<n; i++) {
+		term[i] = Frac( alt(i) , fact(i+1) );
+	}
+}
+

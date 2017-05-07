@@ -57,7 +57,8 @@ int fact(int j) {
 	return n;
 }
 
-/* -:even :: +:odd */
+/* even: returns -1
+   odd:  returns +1  */
 int alt(int j) {
 
 	if (j%2) return 1;

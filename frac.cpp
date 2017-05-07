@@ -10,14 +10,11 @@ Frac::Frac(int n1, int n2) {
 }
 
 void Frac::reduce() {
-//Frac& Frac::reduce() {
 
 	int n = gcf(a,b,1);
 	a = a/n;
 	b = b/n;
-
 }
-
 
 Frac operator+(const Frac& f, const Frac& g) 
 {
@@ -72,7 +69,7 @@ Frac & Frac::operator+=(const Frac& that)
 Frac& Poly::operator[](int i) {
 
 	if (i > n) {
-		perror("Poly() Term");
+		perror("Poly() Term Access Error");
 		Frac *blank = new Frac(); // messy, I just want to return a 0
 		return *blank; 
 	}
@@ -80,9 +77,8 @@ Frac& Poly::operator[](int i) {
 	return term[i];
 }
 
-const Frac& Poly::operator[](int i) const {
-
-	//return ( *this )[i];
+const Frac& Poly::operator[](int i) const 
+{
 	return ( (Poly&)*this )[i];
 }
 

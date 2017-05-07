@@ -59,6 +59,8 @@ class Poly {
   private:
 	size_t n;
 	Frac* term; //is this the best data type?
+				//yes because simple C pointer to primatives makes for easier mem handling
+				//escapes need to delete and reallocate in copy-constructor
 };
 
 #endif

@@ -1,7 +1,7 @@
 CC  = clang++
 CXX = clang++
 
-CXXFLAGS = -g -Wall #-std=c++11
+CXXFLAGS = -g -Wall 
 LDFLAGS  = -g
 
 executables = series
@@ -17,6 +17,7 @@ default: $(executables)
 .PHONY: clean
 clean:
 	rm -f a.out *~ $(objects) $(executables)
+	rm -rf *.dSYM
 
 .PHONY: all
 all: clean default

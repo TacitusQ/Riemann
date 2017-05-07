@@ -1,8 +1,12 @@
 #include "global.h"
+#include <stdlib.h>
 
-int N = 8;
+int main(int argc, char** argv) {
 
-int main() {
+	int N;
+	if (argc > 1) 
+		N = atoi(argv[1]);
+	else N = 8;
 
 	Poly a(N);
 	Poly n(N);
